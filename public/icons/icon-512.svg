@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="CityPets">
+  <rect width="512" height="512" rx="116" fill="#22C55E"/>
+  <circle cx="394" cy="112" r="92" fill="#FACC15" opacity=".95"/>
+  <path fill="#2563EB" opacity=".18" d="M0 368c75-58 131-54 197-27 87 35 154 25 315-86v257H0z"/>
+  <path fill="#fff" d="M256 322c-48 0-83 32-83 72 0 24 18 43 42 43 16 0 27-6 41-6s25 6 41 6c24 0 42-19 42-43 0-40-35-72-83-72z"/>
+  <circle cx="162" cy="242" r="40" fill="#fff"/>
+  <circle cx="235" cy="190" r="43" fill="#fff"/>
+  <circle cx="331" cy="190" r="43" fill="#fff"/>
+  <circle cx="404" cy="242" r="40" fill="#fff"/>
+  <path fill="#1F2937" d="M208 397c0-20 21-38 48-38s48 18 48 38c0 11-8 19-19 19-13 0-19-6-29-6s-16 6-29 6c-11 0-19-8-19-19z" opacity=".12"/>
+</svg>

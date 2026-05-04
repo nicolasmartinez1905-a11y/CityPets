@@ -9,8 +9,8 @@ export default function WelfarePage() {
       <Navbar />
       <section className="page-title">
         <span className="eyebrow">Bienestar y transparencia</span>
-        <h1>Una plataforma comercial con reglas de cuidado animal</h1>
-        <p>La monetizacion solo tiene sentido si mejora la confianza, la trazabilidad y el bienestar.</p>
+        <h1>Una comunidad que cuida a quienes no pueden hablar por sí mismos</h1>
+        <p>Reglas claras, recomendaciones honestas y prioridad absoluta al bienestar animal.</p>
       </section>
       <section className="grid two">
         {trustRules.map((rule, index) => (

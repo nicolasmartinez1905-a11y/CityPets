@@ -307,6 +307,22 @@ img {
   padding: 10px 14px;
 }
 
+.category-strip button {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--blue);
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-weight: 900;
+  padding: 10px 14px;
+}
+
+.category-strip button.active-filter {
+  background: var(--blue);
+  color: #fff;
+}
+
 .hero-phone {
   background: rgba(255, 255, 255, 0.16);
   border: 1px solid rgba(255, 255, 255, 0.28);
@@ -322,6 +338,10 @@ img {
 
 .section {
   margin: 48px 0;
+}
+
+.emotional-intro {
+  margin-top: 28px;
 }
 
 .section-heading,
@@ -525,6 +545,96 @@ img {
 .feed-main {
   display: grid;
   gap: 22px;
+}
+
+.feed-stack {
+  display: grid;
+  gap: 22px;
+}
+
+.social-card {
+  background: var(--surface-strong);
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 26px;
+  box-shadow: var(--soft-shadow);
+  overflow: hidden;
+}
+
+.social-card .post-header {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.avatar,
+.placeholder-avatar {
+  align-items: center;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-weight: 950;
+  justify-content: center;
+  object-fit: cover;
+  width: 56px;
+}
+
+.post-body {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px 4px;
+}
+
+.post-body p {
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.post-body small {
+  color: var(--muted);
+}
+
+.icon-action {
+  align-items: center;
+  background: rgba(37, 99, 235, 0.06);
+  border-radius: 999px;
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 900;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 12px;
+}
+
+.icon-action.active {
+  background: rgba(255, 107, 95, 0.12);
+  color: var(--coral);
+}
+
+.icon-action.muted {
+  color: var(--muted);
+}
+
+.empty-state,
+.skeleton-card {
+  min-height: 220px;
+  padding: 24px;
+}
+
+.skeleton-card {
+  animation: shimmer 1.2s ease-in-out infinite;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.55), rgba(255,255,255,0.92), rgba(255,255,255,0.55)),
+    rgba(255,255,255,0.72);
+  background-size: 240% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 }
 
 .feed-composer {
@@ -1108,6 +1218,24 @@ img {
     linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(238, 244, 247, 0.92)),
     radial-gradient(circle at 85% 20%, rgba(250, 204, 21, 0.24), transparent 30%);
   padding: clamp(24px, 5vw, 46px);
+}
+
+.home-manifest p,
+.community-card p,
+.about-story p {
+  font-size: 18px;
+}
+
+.about-title {
+  background:
+    linear-gradient(135deg, rgba(31, 41, 55, 0.72), rgba(34, 197, 94, 0.62)),
+    url("https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=1500&q=72");
+  background-position: center;
+  background-size: cover;
+}
+
+.about-story {
+  gap: 18px;
 }
 
 .manifest-card h2 {

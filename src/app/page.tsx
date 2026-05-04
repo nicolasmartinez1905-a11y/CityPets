@@ -1,33 +1,84 @@
 import Link from "next/link";
-import { MarketplaceCard } from "@/components/MarketplaceCard";
+import { Heart, MapPin, MessageCircle, PawPrint } from "lucide-react";
+import { FeedPost } from "@/components/FeedPost";
 import { Navbar } from "@/components/Navbar";
-import { NearbySection } from "@/components/NearbySection";
 import { OptimizedHero } from "@/components/OptimizedHero";
 import { PageTransition, SlideUp } from "@/components/Motion";
 import { PetCard } from "@/components/PetCard";
-import { PlanCard } from "@/components/PlanCard";
-import { plans } from "@/data/platformData";
-import { getTopMarketplaceItems } from "@/modules/marketplace/queries";
+import { Stories } from "@/components/Stories";
+import { pets, posts } from "@/data/mockData";
 import { getFeaturedPets } from "@/modules/pets/queries";
 
+const communityStats = [
+  { label: "Mascotas en demo", value: "15" },
+  { label: "Historias locales", value: "20" },
+  { label: "Zonas de Ushuaia", value: "7" }
+];
+
 export default function HomePage() {
-  const featuredPets = getFeaturedPets();
-  const topItems = getTopMarketplaceItems();
+  const featuredPets = getFeaturedPets().slice(0, 8);
 
   return (
     <PageTransition className="page-shell">
       <Navbar />
-      <OptimizedHero />
+      <OptimizedHero showPreview={false} />
+
+      <section className="section emotional-intro">
+        <SlideUp>
+          <article className="manifest-card home-manifest">
+            <span className="eyebrow">CityPets Ushuaia</span>
+            <h2>Tu mascota también tiene una historia que merece ser compartida.</h2>
+            <p>
+              CityPets es una red social para personas que aman a sus mascotas. Un lugar para subir
+              paseos, pedir recomendaciones, encontrar vecinos con la misma rutina y sentir que no
+              estás criando a tu compañero de vida en soledad.
+            </p>
+            <div className="hero-actions">
+              <Link className="button" href="/registro">
+                <PawPrint size={18} /> Sumate con tu mascota
+              </Link>
+              <Link className="button ghost" href="/feed">
+                Ver historias reales
+              </Link>
+            </div>
+          </article>
+        </SlideUp>
+      </section>
 
       <section className="section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">Comunidad</span>
-            <h2>Mascotas que hacen Ushuaia</h2>
-            <p className="muted">Bahia Encerrada, Costanera, Andorra, Pipo y caminatas con frio austral.</p>
+            <span className="eyebrow">Comunidad viva</span>
+            <h2>Historias que se sienten de barrio</h2>
+            <p className="muted">
+              Nieve, viento, bosque, ventanas con gatos y paseos cortos por la Costanera. CityPets
+              empieza en Ushuaia con una comunidad cercana y real.
+            </p>
+          </div>
+          <Link className="button ghost" href="/feed">
+            Ir al feed
+          </Link>
+        </div>
+        <Stories pets={pets} />
+        <div className="grid two">
+          {posts.slice(0, 2).map((post) => (
+            <FeedPost key={post.id} post={post} />
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">Compañeros de vida</span>
+            <h2>Perros y gatos con personalidad propia</h2>
+            <p className="muted">
+              No son perfiles vacíos: cada mascota tiene nombre, rutina, carácter y una forma muy
+              suya de habitar la ciudad.
+            </p>
           </div>
           <Link className="button ghost" href="/match">
-            Ver comunidad
+            Conocer mascotas
           </Link>
         </div>
         <div className="grid four-cards">
@@ -40,60 +91,28 @@ export default function HomePage() {
       </section>
 
       <section className="section">
-        <NearbySection />
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">Servicios cerca</span>
-            <h2>Red social, servicios, tienda y adopcion</h2>
-            <p className="muted">Una plataforma con reputacion, intermediacion y bienestar animal.</p>
-          </div>
-          <Link className="button ghost" href="/servicios">
-            Ver servicios
-          </Link>
-        </div>
-        <div className="grid two">
-          {topItems.map((item, index) => (
-            <SlideUp key={item.id} delay={index * 0.04}>
-              <MarketplaceCard item={item} />
-            </SlideUp>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">SaaS monetizable</span>
-            <h2>Planes para usuarios, tutores premium y profesionales</h2>
-            <p className="muted">Badge verificado, mayor visibilidad, publicaciones destacadas y perfiles profesionales.</p>
-          </div>
-          <Link className="button ghost" href="/marketplace">
-            Ver modelo
-          </Link>
-        </div>
         <div className="grid three">
-          {plans.map((plan, index) => (
-            <SlideUp key={plan.name} delay={index * 0.04}>
-              <PlanCard plan={plan} />
-            </SlideUp>
+          {communityStats.map((stat) => (
+            <article className="summary-card" key={stat.label}>
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </article>
           ))}
         </div>
       </section>
 
       <section className="section">
-        <article className="manifest-card">
-          <span className="eyebrow">Impacto real</span>
-          <h2>Monetizar sin perder de vista el bienestar animal.</h2>
+        <article className="manifest-card community-card">
+          <span className="eyebrow">La ciudad también es de ellos</span>
+          <h2>Un lugar simple para cuidar, compartir y acompañarnos.</h2>
           <p>
-            CityPets organiza el mercado informal de servicios y productos para mascotas con
-            verificacion, reputacion, normas claras, adopcion responsable y moderacion comunitaria.
+            Pedí una recomendación de veterinaria, contá una pequeña victoria del paseo, buscá una
+            caminata tranquila para un perro senior o compartí esa foto que solo otro tutor entiende.
           </p>
-          <div className="hero-actions">
-            <Link className="button" href="/bienestar">Bienestar y transparencia</Link>
-            <Link className="button ghost" href="/quienes-somos">Quienes somos</Link>
+          <div className="trust-row">
+            <span><Heart size={18} /> Historias cotidianas</span>
+            <span><MessageCircle size={18} /> Conversaciones cercanas</span>
+            <span><MapPin size={18} /> Contexto local de Ushuaia</span>
           </div>
         </article>
       </section>

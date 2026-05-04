@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Heart, MessageCircle, Send } from "lucide-react";
+import { pets, posts as demoPosts } from "@/data/mockData";
 import { getSupabase, hasSupabaseConfig } from "@/lib/supabase";
 import { SlideUp } from "./Motion";
 
@@ -38,6 +39,43 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
+function getDemoFeedRows(): FeedRow[] {
+  return demoPosts.map((post) => {
+    const pet = pets.find((item) => item.id === post.petId);
+    return {
+      id: post.id,
+      user_id: `demo-${post.ownerName}`,
+      mascota_id: post.petId,
+      imagen_url: post.photoUrl,
+      descripcion: post.text,
+      ciudad: post.city,
+      zona: post.zone,
+      created_at: post.createdAt,
+      users: {
+        nombre: post.ownerName,
+        foto_url: pet?.owner.avatarUrl ?? null,
+        zona: post.zone
+      },
+      mascotas: {
+        nombre: post.petName,
+        foto_url: pet?.mainPhotoUrl ?? null,
+        especie: pet?.type ?? null
+      },
+      likes: Array.from({ length: Math.min(post.likes, 12) }, (_, index) => ({
+        id: `${post.id}-like-${index}`,
+        user_id: `demo-like-${index}`
+      })),
+      comentarios: post.commentsList.map((comment) => ({
+        id: comment.id,
+        user_id: `demo-${comment.author}`,
+        texto: comment.text,
+        created_at: post.createdAt,
+        users: { nombre: comment.author }
+      }))
+    };
+  });
+}
+
 export function SupabaseFeed() {
   const [posts, setPosts] = useState<FeedRow[]>([]);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
@@ -50,9 +88,11 @@ export function SupabaseFeed() {
 
   async function loadFeed(nextVisible = visible) {
     setError("");
+
     if (!canUseSupabase) {
+      setPosts(getDemoFeedRows().slice(0, nextVisible));
+      setMessage("Estás viendo contenido demo de la comunidad. Conectá Supabase para guardar publicaciones reales.");
       setLoading(false);
-      setError("Faltan las variables de Supabase. Configura .env.local para ver publicaciones reales.");
       return;
     }
 
@@ -71,11 +111,16 @@ export function SupabaseFeed() {
 
     setLoading(false);
     if (feedError) {
-      setError(feedError.message);
+      setPosts(getDemoFeedRows().slice(0, nextVisible));
+      setMessage("No pudimos cargar la base real ahora. Te mostramos una vista demo mientras tanto.");
       return;
     }
 
-    setPosts((data ?? []) as unknown as FeedRow[]);
+    const realPosts = (data ?? []) as unknown as FeedRow[];
+    setPosts(realPosts.length ? realPosts : getDemoFeedRows().slice(0, nextVisible));
+    if (!realPosts.length) {
+      setMessage("Todavía no hay publicaciones reales. Te mostramos una comunidad demo para que la app no se sienta vacía.");
+    }
   }
 
   useEffect(() => {
@@ -89,8 +134,8 @@ export function SupabaseFeed() {
   async function toggleLike(post: FeedRow) {
     setMessage("");
     setError("");
-    if (!currentUserId) {
-      setError("Ingresá con tu cuenta confirmada para dar like.");
+    if (!currentUserId || post.user_id.startsWith("demo-")) {
+      setError("Ingresá con tu cuenta confirmada para guardar likes reales.");
       return;
     }
 
@@ -110,8 +155,9 @@ export function SupabaseFeed() {
     setError("");
     setMessage("");
 
-    if (!currentUserId) {
-      setError("Ingresá para comentar en la comunidad.");
+    const post = posts.find((item) => item.id === postId);
+    if (!currentUserId || post?.user_id.startsWith("demo-")) {
+      setError("Ingresá para comentar y que tu mensaje quede guardado.");
       return;
     }
 
@@ -147,15 +193,15 @@ export function SupabaseFeed() {
       {!posts.length ? (
         <SlideUp>
           <section className="social-card empty-state">
-            <h2>Todavía no hay publicaciones reales en Ushuaia.</h2>
-            <p>Ingresá al panel, registrá tu mascota y publicá la primera foto de la comunidad.</p>
+            <h2>Todavía no hay publicaciones.</h2>
+            <p>Sumá a tu mascota y compartí la primera historia de la comunidad.</p>
           </section>
         </SlideUp>
       ) : null}
 
       {posts.map((post, index) => {
         const liked = Boolean(currentUserId && post.likes?.some((like) => like.user_id === currentUserId));
-        const avatar = post.mascotas?.foto_url ?? post.users?.foto_url ?? "/window.svg";
+        const avatar = post.mascotas?.foto_url ?? post.users?.foto_url ?? "/icons/icon-192.svg";
         return (
           <SlideUp key={post.id} delay={index * 0.03}>
             <article className="social-card">
@@ -169,7 +215,9 @@ export function SupabaseFeed() {
                 </div>
               </header>
 
-              {post.imagen_url ? <img className="post-image" src={post.imagen_url} alt={post.descripcion} loading="lazy" /> : null}
+              {post.imagen_url ? (
+                <img className="post-image" src={post.imagen_url} alt={post.descripcion} loading="lazy" />
+              ) : null}
 
               <div className="post-body">
                 <p>{post.descripcion}</p>

@@ -188,11 +188,14 @@ export function LaunchConsole() {
 
   return (
     <section className="launch-console">
-      <div className="console-header">
+      <div className="console-header onboarding-header">
         <div>
-          <span className="eyebrow">Centro de lanzamiento</span>
+          <span className="eyebrow">Primeros pasos</span>
           <h2>Hola, {profile.nombre}</h2>
-          <p className="muted">{profile.zona}, Ushuaia | Perfil {profile.verificado ? "verificado" : "pendiente"}</p>
+          <p className="muted">
+            Sumá a tu compañero de vida, contanos cómo es y compartí su primera historia en Ushuaia.
+            Perfil {profile.verificado ? "verificado" : "pendiente"}.
+          </p>
         </div>
         <button className="button ghost" type="button" onClick={logout}><LogOut size={18} /> Salir</button>
       </div>
@@ -201,35 +204,38 @@ export function LaunchConsole() {
 
       <div className="console-grid">
         <form className="launch-form" onSubmit={updateProfile}>
-          <h3>Editar perfil</h3>
+          <span className="eyebrow">Tu historia</span>
+          <h3>Completá tu perfil</h3>
           <input name="name" defaultValue={profile.nombre} placeholder="Nombre" />
           <select name="zone" defaultValue={profile.zona ?? "Centro"}>
             {cityZones.map((zone) => <option key={zone.zone}>{zone.zone}</option>)}
           </select>
           <input name="avatar" type="file" accept="image/*" />
-          <textarea name="bio" defaultValue={profile.bio ?? ""} placeholder="Descripción" />
+          <textarea name="bio" defaultValue={profile.bio ?? ""} placeholder="Contá algo sobre vos y tu vida con mascotas" />
           <button className="button" type="submit">Guardar perfil</button>
         </form>
 
         <form className="launch-form" onSubmit={addPet}>
-          <h3>Registrar mascota</h3>
-          <input name="name" placeholder="Nombre" required />
+          <span className="eyebrow">Contanos sobre tu compañero de vida</span>
+          <h3>Sumá a tu mascota a la comunidad</h3>
+          <input name="name" placeholder="¿Cómo se llama?" required />
           <input name="breed" placeholder="Raza" />
           <input name="age" placeholder="Edad" type="number" min="0" />
           <select name="type"><option>Perro</option><option>Gato</option><option>Otro</option></select>
           <select name="zone">{cityZones.map((zone) => <option key={zone.zone}>{zone.zone}</option>)}</select>
           <input name="photo" type="file" accept="image/*" />
-          <button className="button" type="submit"><Plus size={18} /> Guardar mascota</button>
+          <button className="button" type="submit"><Plus size={18} /> Crear perfil de mascota</button>
         </form>
 
         <form className="launch-form" onSubmit={addPost}>
-          <h3>Crear publicación</h3>
+          <span className="eyebrow">Primera historia</span>
+          <h3>Compartí un momento</h3>
           <select name="petId">
             <option value="">Sin mascota asociada</option>
             {pets.map((pet) => <option key={pet.id} value={pet.id}>{pet.nombre}</option>)}
           </select>
           <input name="image" type="file" accept="image/*,video/*" />
-          <textarea name="text" placeholder="¿Qué querés compartir con Ushuaia?" required />
+          <textarea name="text" placeholder="¿Qué hizo hoy tu mascota? Un paseo, una travesura, una consulta..." required />
           <button className="button" type="submit">Publicar</button>
         </form>
 

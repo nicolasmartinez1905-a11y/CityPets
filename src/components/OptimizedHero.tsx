@@ -101,7 +101,7 @@ export function OptimizedHero({ compact = false, showPreview = true }: Optimized
       >
         <span className="eyebrow">CityPets Ushuaia</span>
         <h1>La ciudad también es de ellos 🐾</h1>
-        <p>Conectando mascotas y personas en Ushuaia</p>
+        <p>Tu mascota también tiene una historia que merece ser compartida.</p>
         <motion.div
           className="hero-actions centered-actions"
           initial={{ opacity: 0, y: 14 }}
@@ -109,7 +109,7 @@ export function OptimizedHero({ compact = false, showPreview = true }: Optimized
           transition={{ duration: 0.28, delay: 0.16, ease: "easeOut" }}
         >
           <Link className="button" href="/feed">
-            Sumate a la comunidad
+            Sumate con tu mascota
           </Link>
         </motion.div>
       </motion.div>

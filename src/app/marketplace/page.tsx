@@ -37,9 +37,9 @@ export default function MarketplacePage() {
     <PageTransition className="page-shell">
       <Navbar />
       <section className="page-title">
-        <span className="eyebrow">Plataforma SaaS CityPets</span>
-        <h1>Red social, marketplace y confianza en un solo ecosistema</h1>
-        <p>Un modelo freemium con servicios monetizables, reputacion visible e impacto positivo.</p>
+        <span className="eyebrow">Comunidad organizada</span>
+        <h1>Todo lo que tu mascota necesita, con gente de confianza cerca</h1>
+        <p>Recomendaciones, productos, adopciones y cuidados pensados para la vida real en Ushuaia.</p>
       </section>
 
       <section className="grid four-cards">
@@ -61,9 +61,9 @@ export default function MarketplacePage() {
       <section className="section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">Monetizacion</span>
-            <h2>Modelo freemium listo para escalar</h2>
-            <p className="muted">Usuarios gratis, tutores premium y profesionales con herramientas de venta.</p>
+            <span className="eyebrow">Opciones para crecer</span>
+            <h2>Planes simples para tutores y profesionales responsables</h2>
+            <p className="muted">Más visibilidad para quienes quieren participar activamente en la comunidad.</p>
           </div>
         </div>
         <div className="grid three">
