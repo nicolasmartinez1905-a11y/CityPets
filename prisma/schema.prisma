@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  city         String?
+  zone         String?
+  lat          Float?
+  lng          Float?
+  avatarUrl    String?
+  bio          String?
+  pets         Pet[]
+  posts        Post[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([city])
+  @@index([zone])
+}
+
+model Pet {
+  id           String        @id @default(cuid())
+  ownerId      String
+  owner        User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name         String
+  type         String
+  breed        String?
+  age          Int?
+  sex          String        @default("UNKNOWN")
+  city         String?
+  zone         String?
+  lat          Float?
+  lng          Float?
+  description  String?
+  mainPhotoUrl String?
+  isNeutered   Boolean       @default(false)
+  hasChip      Boolean       @default(false)
+  vaccinesOk   Boolean       @default(false)
+  temperament  String?
+  gallery      PetPhoto[]
+  posts        Post[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([ownerId])
+  @@index([city])
+  @@index([zone])
+  @@index([type])
+}
+
+model PetPhoto {
+  id        String   @id @default(cuid())
+  petId     String
+  pet       Pet      @relation(fields: [petId], references: [id], onDelete: Cascade)
+  url       String
+  caption   String?
+  createdAt DateTime @default(now())
+
+  @@index([petId])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  petId     String
+  pet       Pet      @relation(fields: [petId], references: [id], onDelete: Cascade)
+  text      String
+  photoUrl  String?
+  city      String?
+  zone      String?
+  lat       Float?
+  lng       Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId])
+  @@index([petId])
+  @@index([createdAt])
+  @@index([city])
+  @@index([zone])
+}
