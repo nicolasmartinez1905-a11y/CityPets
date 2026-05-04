@@ -11,6 +11,8 @@ type MatchCardProps = {
 
 export function MatchCard({ pet }: MatchCardProps) {
   const [status, setStatus] = useState<"idle" | "liked" | "passed">("idle");
+  const compatibilityLevel =
+    pet.matchScore >= 90 ? "high" : pet.matchScore >= 78 ? "medium" : "low";
 
   return (
     <motion.article
@@ -28,7 +30,17 @@ export function MatchCard({ pet }: MatchCardProps) {
             <h3>{pet.name}</h3>
             <p>{pet.breed} | {pet.zone}, {pet.city}</p>
           </div>
-          <span className="score">{pet.matchScore}%</span>
+          <span
+            className={`walk-compatibility ${compatibilityLevel}`}
+            tabIndex={0}
+            aria-label={`Compatibilidad de paseo ${pet.matchScore} por ciento. Basado en actividad, ubicación y comportamiento`}
+          >
+            <span>Compatibilidad de paseo</span>
+            <strong>{pet.matchScore}%</strong>
+            <small className="compatibility-tooltip">
+              Basado en actividad, ubicación y comportamiento
+            </small>
+          </span>
         </div>
         <p className="description">{pet.description}</p>
         <div className="match-actions">
