@@ -1,15 +1,18 @@
 import Link from "next/link";
-import { Bell, Compass, HeartHandshake, Home, ShieldCheck, ShoppingBag, Store, UserPlus, UserRound } from "lucide-react";
+import { Bell, ChevronDown, Compass, HeartHandshake, Home, PawPrint, ShieldCheck, ShoppingBag, Store, UserRound } from "lucide-react";
 
-const links = [
+const primaryLinks = [
   { href: "/feed", label: "Feed", icon: Home },
-  { href: "/servicios", label: "Servicios", icon: Store },
-  { href: "/tienda", label: "Tienda", icon: ShoppingBag },
-  { href: "/adopcion", label: "Adopcion", icon: HeartHandshake },
-  { href: "/bienestar", label: "Confianza", icon: ShieldCheck },
   { href: "/match", label: "Explorar", icon: Compass },
-  { href: "/dashboard", label: "Perfil", icon: UserRound },
-  { href: "/registro", label: "Registro", icon: UserPlus }
+  { href: "/#mascotas", label: "Mascotas", icon: PawPrint },
+  { href: "/dashboard", label: "Perfil", icon: UserRound }
+];
+
+const secondaryLinks = [
+  { href: "/tienda", label: "Tienda", icon: ShoppingBag },
+  { href: "/servicios", label: "Servicios", icon: Store },
+  { href: "/bienestar", label: "Confianza", icon: ShieldCheck },
+  { href: "/adopcion", label: "Adopción", icon: HeartHandshake }
 ];
 
 export function Navbar() {
@@ -19,7 +22,7 @@ export function Navbar() {
         <span>City</span>Pets
       </Link>
       <nav className="navlinks" aria-label="Navegacion principal">
-        {links.map((link) => {
+        {primaryLinks.map((link) => {
           const Icon = link.icon;
 
           return (
@@ -29,6 +32,24 @@ export function Navbar() {
             </Link>
           );
         })}
+        <details className="nav-secondary">
+          <summary>
+            Más
+            <ChevronDown size={15} />
+          </summary>
+          <div className="nav-secondary-menu">
+            {secondaryLinks.map((link) => {
+              const Icon = link.icon;
+
+              return (
+                <Link key={link.href} href={link.href}>
+                  <Icon size={16} />
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+        </details>
       </nav>
       <Link className="nav-cta" href="/dashboard">
         <Bell size={17} /> Publicar

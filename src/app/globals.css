@@ -125,6 +125,61 @@ img {
   transform: translateY(-1px);
 }
 
+.nav-secondary {
+  position: relative;
+}
+
+.nav-secondary summary {
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 6px;
+  list-style: none;
+  padding: 10px 14px;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.nav-secondary summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-secondary summary:hover,
+.nav-secondary[open] summary {
+  background: var(--secondary-soft);
+  color: var(--secondary-strong);
+  transform: translateY(-1px);
+}
+
+.nav-secondary summary svg {
+  transition: transform 180ms ease;
+}
+
+.nav-secondary[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.nav-secondary-menu {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 4px;
+  min-width: 190px;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  z-index: 30;
+}
+
+.nav-secondary-menu a {
+  justify-content: flex-start;
+  padding: 11px 12px;
+  width: 100%;
+}
+
 .button,
 .nav-cta {
   align-items: center;
@@ -1817,6 +1872,20 @@ img {
 
   .navlinks a {
     padding: 8px 10px;
+  }
+
+  .nav-secondary {
+    width: 100%;
+  }
+
+  .nav-secondary summary {
+    padding: 8px 10px;
+  }
+
+  .nav-secondary-menu {
+    margin-top: 8px;
+    position: static;
+    width: 100%;
   }
 
   .urban-hero {

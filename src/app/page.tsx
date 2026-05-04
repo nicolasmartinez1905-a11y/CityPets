@@ -120,7 +120,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="mascotas">
         <div className="section-heading">
           <div>
             <span className="eyebrow">Compañeros de vida</span>
