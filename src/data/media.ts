@@ -5,25 +5,25 @@ export const ushuaiaMedia = {
     {
       imageUrl: "/images/hero/hero-winter.webp",
       alt: "Perro con abrigo paseando en la nieve frente a la ciudad de Ushuaia",
-      microcopy: "Invierno, abrigo y paseos compartidos.",
+      microcopy: "Cada paseo cuenta una historia",
       position: "center 48%"
     },
     {
       imageUrl: "/images/hero/hero-urban-walk.webp",
       alt: "Persona caminando con su perro por un barrio de Ushuaia",
-      microcopy: "Paseos de barrio, vecinos y rutina fueguina.",
+      microcopy: "Ushuaia también se vive con ellos",
       position: "center 52%"
     },
     {
-      imageUrl: "/images/hero/hero-forest.webp",
-      alt: "Perro corriendo por un sendero de bosque fueguino",
-      microcopy: "Senderos, bosque y aire patagónico.",
-      position: "center 48%"
+      imageUrl: "/images/hero/hero-k9.webp",
+      alt: "Entrenamiento K9 con perro y guía en paisaje fueguino",
+      microcopy: "Entrenar es conectar",
+      position: "center 50%"
     },
     {
       imageUrl: "/images/hero/hero-close.webp",
       alt: "Gato en primer plano con Ushuaia desenfocada de fondo",
-      microcopy: "Cada mascota tiene una historia.",
+      microcopy: "Son familia",
       position: "center 45%"
     }
   ],

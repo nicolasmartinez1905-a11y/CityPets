@@ -15,6 +15,7 @@ type OptimizedHeroProps = {
 };
 
 const heroSlides = ushuaiaMedia.dynamicHero;
+const clipDurationMs = 3250;
 
 export function OptimizedHero({ compact = false, showPreview = true }: OptimizedHeroProps) {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -37,7 +38,7 @@ export function OptimizedHero({ compact = false, showPreview = true }: Optimized
 
     const intervalId = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % heroSlides.length);
-    }, 5000);
+    }, clipDurationMs);
 
     return () => window.clearInterval(intervalId);
   }, [isPaused]);
@@ -57,6 +58,7 @@ export function OptimizedHero({ compact = false, showPreview = true }: Optimized
             className={index === activeSlide ? "hero-slide is-active" : "hero-slide"}
             loading={index === 0 ? "eager" : "lazy"}
             fetchPriority={index === 0 ? "high" : "auto"}
+            sizes="100vw"
             style={{ objectPosition: slide.position }}
           />
         ))}

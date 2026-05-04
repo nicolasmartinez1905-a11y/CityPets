@@ -9,6 +9,37 @@ import { Stories } from "@/components/Stories";
 import { pets, posts } from "@/data/mockData";
 import { getFeaturedPets } from "@/modules/pets/queries";
 
+const realStories = [
+  {
+    name: "Luna",
+    location: "Bosque cerca del Pipo, Ushuaia",
+    imageUrl: "/images/hero/hero-winter.webp",
+    story:
+      "Luna no puede salir sin correr en la nieve. Su paseo favorito empieza despacio, con abrigo, y termina siempre con la cola llena de copos."
+  },
+  {
+    name: "Bruno",
+    location: "Barrio alto de Ushuaia",
+    imageUrl: "/images/hero/hero-urban-walk.webp",
+    story:
+      "Bruno acompaña a su humana todos los días por las subidas del barrio. No hay viento fueguino que le saque las ganas de caminar."
+  },
+  {
+    name: "Kira",
+    location: "Senderos fueguinos",
+    imageUrl: "/images/hero/hero-k9.webp",
+    story:
+      "Kira entrena con calma y mirada atenta. Para ella, obedecer no es una orden: es una forma de entenderse con quien la cuida."
+  },
+  {
+    name: "Milo",
+    location: "Costanera de Ushuaia",
+    imageUrl: "/images/hero/hero-close.webp",
+    story:
+      "Milo mira la ciudad como si fuera suya. Desde la ventana o la costa, siempre encuentra un momento para quedarse cerca."
+  }
+];
+
 const communityStats = [
   { label: "Mascotas en demo", value: "15" },
   { label: "Historias locales", value: "20" },
@@ -45,6 +76,38 @@ export default function HomePage() {
     <PageTransition className="page-shell">
       <Navbar />
       <OptimizedHero showPreview={false} />
+
+      <section className="section real-stories-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">Comunidad real</span>
+            <h2>Historias reales de mascotas en Ushuaia</h2>
+            <p className="muted">
+              Momentos simples, frío, costanera, bosque y compañía. CityPets empieza por esas
+              historias que cualquier persona con mascota reconoce al instante.
+            </p>
+          </div>
+          <Link className="button ghost" href="/feed">
+            Ver comunidad
+          </Link>
+        </div>
+        <div className="real-stories-row">
+          {realStories.map((story, index) => (
+            <SlideUp key={story.name} delay={index * 0.04}>
+              <article className="real-story-card">
+                <img src={story.imageUrl} alt={story.name} loading="lazy" />
+                <div>
+                  <span className="pet-location">
+                    <MapPin size={14} /> {story.location}
+                  </span>
+                  <h3>{story.name}</h3>
+                  <p>{story.story}</p>
+                </div>
+              </article>
+            </SlideUp>
+          ))}
+        </div>
+      </section>
 
       <section className="section home-actions-section">
         <div className="section-heading compact">
