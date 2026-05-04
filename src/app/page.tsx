@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Heart, MapPin, MessageCircle, PawPrint } from "lucide-react";
+import { Camera, Heart, HeartHandshake, MapPin, MessageCircle, PawPrint, Store, UsersRound } from "lucide-react";
 import { FeedPost } from "@/components/FeedPost";
 import { Navbar } from "@/components/Navbar";
 import { OptimizedHero } from "@/components/OptimizedHero";
@@ -15,6 +15,29 @@ const communityStats = [
   { label: "Zonas de Ushuaia", value: "7" }
 ];
 
+const cityPetsActions = [
+  {
+    title: "Publicar experiencias",
+    description: "Compartí paseos, fotos y momentos cotidianos con tu compañero de vida.",
+    icon: Camera
+  },
+  {
+    title: "Encontrar compañeros de paseo",
+    description: "Conectá con vecinos de Ushuaia que tienen rutinas parecidas a la tuya.",
+    icon: UsersRound
+  },
+  {
+    title: "Adoptar mascotas",
+    description: "Descubrí historias de adopción responsable y ayudá a que más mascotas encuentren hogar.",
+    icon: HeartHandshake
+  },
+  {
+    title: "Descubrir servicios locales",
+    description: "Encontrá veterinarias, paseadores y cuidadores cerca tuyo, con contexto local.",
+    icon: Store
+  }
+];
+
 export default function HomePage() {
   const featuredPets = getFeaturedPets().slice(0, 8);
 
@@ -22,6 +45,36 @@ export default function HomePage() {
     <PageTransition className="page-shell">
       <Navbar />
       <OptimizedHero showPreview={false} />
+
+      <section className="section home-actions-section">
+        <div className="section-heading compact">
+          <div>
+            <span className="eyebrow">Primeros pasos</span>
+            <h2>¿Qué podés hacer en CityPets?</h2>
+            <p className="muted">
+              Una comunidad simple para compartir, encontrar compañía y resolver la vida diaria con
+              mascotas en Ushuaia.
+            </p>
+          </div>
+        </div>
+        <div className="grid four-cards action-grid">
+          {cityPetsActions.map((action, index) => {
+            const Icon = action.icon;
+
+            return (
+              <SlideUp key={action.title} delay={index * 0.04}>
+                <article className="action-card">
+                  <span className="action-icon">
+                    <Icon size={24} />
+                  </span>
+                  <h3>{action.title}</h3>
+                  <p>{action.description}</p>
+                </article>
+              </SlideUp>
+            );
+          })}
+        </div>
+      </section>
 
       <section className="section emotional-intro">
         <SlideUp>
