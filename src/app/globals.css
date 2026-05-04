@@ -551,6 +551,144 @@ img {
   aspect-ratio: 0.95 / 1;
 }
 
+.pet-card {
+  position: relative;
+}
+
+.pet-card .card-body {
+  gap: 10px;
+}
+
+.pet-image-link {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.pet-card .card-image {
+  transition: filter 220ms ease, transform 260ms ease;
+}
+
+.pet-card:hover .card-image,
+.pet-card:focus-within .card-image {
+  filter: saturate(1.08) contrast(1.02);
+  transform: scale(1.04);
+}
+
+.pet-hover-info {
+  align-items: flex-start;
+  background: linear-gradient(180deg, transparent 0%, rgba(17, 24, 39, 0.82) 100%);
+  color: #fff;
+  display: grid;
+  gap: 4px;
+  inset: auto 0 0;
+  opacity: 0;
+  padding: 52px 16px 14px;
+  position: absolute;
+  transform: translateY(12px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.pet-card:hover .pet-hover-info,
+.pet-card:focus-within .pet-hover-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pet-hover-info span,
+.pet-main-meta,
+.pet-location {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+}
+
+.pet-hover-info span:first-child {
+  font-weight: 900;
+}
+
+.pet-hover-info span:last-child {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+}
+
+.pet-main-meta {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+  margin: 4px 0 0;
+}
+
+.pet-description {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  line-height: 1.45;
+  overflow: hidden;
+}
+
+.pet-card-footer {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.pet-location {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+  min-width: 0;
+}
+
+.pet-card-actions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 7px;
+}
+
+.pet-primary-action,
+.pet-secondary-action {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 11px;
+  transition: background 170ms ease, box-shadow 170ms ease, color 170ms ease, transform 170ms ease;
+}
+
+.pet-primary-action {
+  background: var(--secondary);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+  color: #fff;
+}
+
+.pet-primary-action:hover {
+  background: var(--secondary-strong);
+  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.24);
+  transform: translateY(-1px);
+}
+
+.pet-secondary-action {
+  background: rgba(22, 163, 74, 0.08);
+  color: var(--primary-strong);
+}
+
+.pet-secondary-action:hover {
+  background: var(--primary-soft);
+  transform: translateY(-1px);
+}
+
+.pet-primary-action:active,
+.pet-secondary-action:active {
+  transform: scale(0.97);
+}
+
 .pill,
 .tag,
 .score {
