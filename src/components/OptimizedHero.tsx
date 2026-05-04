@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FeedPost } from "@/components/FeedPost";
 import { Stories } from "@/components/Stories";
@@ -14,84 +14,53 @@ type OptimizedHeroProps = {
   showPreview?: boolean;
 };
 
-type NetworkInformationLike = {
-  effectiveType?: string;
-  saveData?: boolean;
-};
-
-const fallbackImage = ushuaiaMedia.heroFallback;
-
-const videoSources = [
-  {
-    src: "https://cdn.coverr.co/videos/coverr-walking-the-dog-1564/1080p.mp4",
-    type: "video/mp4"
-  }
-];
-
-function shouldSkipVideo() {
-  if (typeof window === "undefined") {
-    return true;
-  }
-
-  const connection = (navigator as Navigator & { connection?: NetworkInformationLike }).connection;
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const slowConnection =
-    connection?.saveData === true ||
-    connection?.effectiveType === "slow-2g" ||
-    connection?.effectiveType === "2g";
-
-  return prefersReducedMotion || slowConnection;
-}
+const heroSlides = ushuaiaMedia.dynamicHero;
 
 export function OptimizedHero({ compact = false, showPreview = true }: OptimizedHeroProps) {
-  const [canLoadVideo, setCanLoadVideo] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
-  const posts = useMemo(() => getFeedPosts(), []);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const posts = getFeedPosts();
 
   useEffect(() => {
-    if (shouldSkipVideo()) {
+    heroSlides.forEach((slide) => {
+      const image = new Image();
+      image.src = slide.imageUrl;
+    });
+  }, []);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isPaused || prefersReducedMotion) {
       return;
     }
 
-    const load = () => setCanLoadVideo(true);
-    let idleId: number | null = null;
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    const intervalId = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % heroSlides.length);
+    }, 5000);
 
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(load, { timeout: 1600 });
-    } else {
-      timeoutId = setTimeout(load, 900);
-    }
-
-    return () => {
-      if (idleId !== null && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, []);
+    return () => window.clearInterval(intervalId);
+  }, [isPaused]);
 
   return (
-    <section className={compact ? "urban-hero video-hero compact-hero" : "urban-hero video-hero"}>
-      <img src={fallbackImage} alt="" className="hero-placeholder" fetchPriority="high" />
-      {canLoadVideo ? (
-        <video
-          className={videoReady ? "hero-video is-ready" : "hero-video"}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          poster={fallbackImage}
-          onCanPlay={() => setVideoReady(true)}
-        >
-          {videoSources.map((source) => (
-            <source key={source.src} src={source.src} type={source.type} />
-          ))}
-        </video>
-      ) : null}
+    <section
+      className={compact ? "urban-hero dynamic-hero compact-hero" : "urban-hero dynamic-hero"}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="hero-slides" aria-hidden="true">
+        {heroSlides.map((slide, index) => (
+          <img
+            key={slide.imageUrl}
+            src={slide.imageUrl}
+            alt=""
+            className={index === activeSlide ? "hero-slide is-active" : "hero-slide"}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "auto"}
+            style={{ objectPosition: slide.position }}
+          />
+        ))}
+      </div>
       <div className="hero-overlay" />
       <motion.div
         className="hero-copy centered-hero-copy"
@@ -100,19 +69,41 @@ export function OptimizedHero({ compact = false, showPreview = true }: Optimized
         transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
       >
         <span className="eyebrow">CityPets Ushuaia</span>
-        <h1>La ciudad también es de ellos 🐾</h1>
+        <h1>La ciudad también es de ellos</h1>
         <p>Tu mascota también tiene una historia que merece ser compartida.</p>
+        <motion.span
+          key={heroSlides[activeSlide].microcopy}
+          className="hero-microcopy"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.28, ease: "easeOut" }}
+        >
+          {heroSlides[activeSlide].microcopy}
+        </motion.span>
         <motion.div
           className="hero-actions centered-actions"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, delay: 0.16, ease: "easeOut" }}
         >
-          <Link className="button" href="/feed">
+          <Link className="button" href="/registro">
             Sumate con tu mascota
           </Link>
         </motion.div>
       </motion.div>
+
+      <div className="hero-dots" aria-label="Cambiar imagen del hero">
+        {heroSlides.map((slide, index) => (
+          <button
+            key={slide.imageUrl}
+            type="button"
+            aria-label={`Ver imagen ${index + 1}: ${slide.microcopy}`}
+            aria-pressed={index === activeSlide}
+            className={index === activeSlide ? "is-active" : ""}
+            onClick={() => setActiveSlide(index)}
+          />
+        ))}
+      </div>
 
       {showPreview ? (
         <motion.div
