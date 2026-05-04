@@ -2,16 +2,26 @@
   --bg: #eef4f7;
   --surface: #ffffff;
   --surface-strong: rgba(255, 255, 255, 0.92);
-  --ink: #1f2937;
-  --muted: #65717c;
+  --ink: #111827;
+  --muted: #4b5563;
   --line: rgba(23, 32, 42, 0.1);
-  --green: #22c55e;
-  --green-dark: #12803d;
-  --blue: #2563eb;
-  --yellow: #facc15;
-  --coral: #ff6b5f;
-  --shadow: 0 22px 70px rgba(20, 44, 64, 0.14);
-  --soft-shadow: 0 12px 34px rgba(20, 44, 64, 0.1);
+  --primary: #16a34a;
+  --primary-soft: #dcfce7;
+  --primary-strong: #166534;
+  --secondary: #2563eb;
+  --secondary-strong: #1d4ed8;
+  --secondary-soft: #dbeafe;
+  --accent: #facc15;
+  --accent-soft: #fef3c7;
+  --accent-strong: #92400e;
+  --emotion: #ff6b5f;
+  --green: var(--primary);
+  --green-dark: var(--primary-strong);
+  --blue: var(--secondary);
+  --yellow: var(--accent);
+  --coral: var(--emotion);
+  --shadow: 0 22px 70px rgba(15, 23, 42, 0.16);
+  --soft-shadow: 0 12px 34px rgba(15, 23, 42, 0.1);
 }
 
 * {
@@ -107,17 +117,17 @@ img {
 }
 
 .navlinks a:hover {
-  background: rgba(22, 163, 123, 0.12);
-  color: var(--green-dark);
+  background: var(--secondary-soft);
+  color: var(--secondary-strong);
   transform: translateY(-1px);
 }
 
 .button,
 .nav-cta {
   align-items: center;
-  background: linear-gradient(135deg, var(--green), var(--blue));
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-strong));
   border-radius: 999px;
-  box-shadow: 0 12px 26px rgba(8, 116, 91, 0.23);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.28);
   color: #fff;
   cursor: pointer;
   display: inline-flex;
@@ -131,7 +141,7 @@ img {
 
 .button:hover,
 .nav-cta:hover {
-  box-shadow: 0 18px 34px rgba(8, 116, 91, 0.3);
+  box-shadow: 0 18px 38px rgba(37, 99, 235, 0.36);
   filter: saturate(1.08);
   transform: translateY(-2px);
 }
@@ -139,7 +149,7 @@ img {
 .button.ghost {
   background: #fff;
   box-shadow: inset 0 0 0 1px var(--line), var(--soft-shadow);
-  color: var(--blue);
+  color: var(--secondary-strong);
 }
 
 .button.glass {
@@ -148,7 +158,7 @@ img {
 }
 
 .eyebrow {
-  color: var(--green-dark);
+  color: var(--primary-strong);
   display: inline-flex;
   font-size: 12px;
   font-weight: 950;
@@ -301,7 +311,7 @@ img {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 999px;
-  color: var(--blue);
+  color: var(--secondary-strong);
   flex: 0 0 auto;
   font-weight: 900;
   padding: 10px 14px;
@@ -311,7 +321,7 @@ img {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 999px;
-  color: var(--blue);
+  color: var(--secondary-strong);
   cursor: pointer;
   flex: 0 0 auto;
   font-weight: 900;
@@ -319,7 +329,7 @@ img {
 }
 
 .category-strip button.active-filter {
-  background: var(--blue);
+  background: var(--secondary);
   color: #fff;
 }
 
@@ -462,9 +472,9 @@ img {
 .pill,
 .tag,
 .score {
-  background: rgba(22, 163, 123, 0.12);
+  background: var(--primary-soft);
   border-radius: 999px;
-  color: var(--green-dark);
+  color: var(--primary-strong);
   font-size: 12px;
   font-weight: 900;
   padding: 7px 10px;
@@ -472,13 +482,13 @@ img {
 }
 
 .tag {
-  background: rgba(20, 108, 148, 0.1);
-  color: var(--blue);
+  background: var(--secondary-soft);
+  color: var(--secondary-strong);
 }
 
 .score {
-  background: rgba(247, 189, 59, 0.22);
-  color: #8a5a00;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
   font-size: 16px;
 }
 
@@ -507,7 +517,7 @@ img {
 }
 
 .story-ring {
-  background: conic-gradient(from 180deg, var(--yellow), var(--coral), var(--blue), var(--green), var(--yellow));
+  background: conic-gradient(from 180deg, var(--accent), var(--primary), var(--secondary), var(--primary), var(--accent));
   border-radius: 999px;
   padding: 3px;
   transition: transform 180ms ease;
@@ -598,7 +608,7 @@ img {
 
 .icon-action {
   align-items: center;
-  background: rgba(37, 99, 235, 0.06);
+  background: var(--primary-soft);
   border-radius: 999px;
   color: var(--ink);
   cursor: pointer;
@@ -610,8 +620,8 @@ img {
 }
 
 .icon-action.active {
-  background: rgba(255, 107, 95, 0.12);
-  color: var(--coral);
+  background: var(--primary);
+  color: #fff;
 }
 
 .icon-action.muted {
@@ -713,7 +723,7 @@ img {
 }
 
 .like-burst {
-  color: rgba(255, 107, 95, 0.94);
+  color: var(--primary);
   filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.28));
   left: 50%;
   pointer-events: none;
@@ -748,13 +758,13 @@ img {
 }
 
 .icon-button:hover {
-  background: rgba(20, 108, 148, 0.1);
-  color: var(--blue);
+  background: var(--primary-soft);
+  color: var(--primary-strong);
   transform: translateY(-1px);
 }
 
 .icon-button.active {
-  color: var(--coral);
+  color: var(--primary);
 }
 
 .likes-line {
@@ -808,15 +818,15 @@ img {
 }
 
 .comment-form input {
-  background: rgba(37, 99, 235, 0.06);
-  border: 1px solid rgba(37, 99, 235, 0.08);
+  background: var(--secondary-soft);
+  border: 1px solid rgba(37, 99, 235, 0.12);
   border-radius: 999px;
   min-height: 42px;
   padding: 0 14px;
 }
 
 .comment-form button {
-  background: var(--blue);
+  background: var(--secondary);
   border-radius: 999px;
   color: #fff;
   cursor: pointer;
@@ -1015,7 +1025,7 @@ img {
 }
 
 .star.filled {
-  color: var(--yellow);
+  color: var(--accent);
 }
 
 .summary-grid {
@@ -1166,7 +1176,7 @@ img {
 
 .module-card svg,
 .policy-card svg {
-  color: var(--blue);
+  color: var(--secondary);
 }
 
 .module-card h2,
@@ -1316,8 +1326,8 @@ img {
 }
 
 .form-success {
-  background: rgba(34, 197, 94, 0.12);
-  color: var(--green-dark);
+  background: var(--primary-soft);
+  color: var(--primary-strong);
 }
 
 .admin-list {
@@ -1366,7 +1376,7 @@ img {
 }
 
 .pet-avatar-wrap {
-  background: conic-gradient(from 180deg, var(--yellow), var(--coral), var(--blue), var(--green), var(--yellow));
+  background: conic-gradient(from 180deg, var(--accent), var(--primary), var(--secondary), var(--primary), var(--accent));
   border-radius: 999px;
   padding: 5px;
 }
